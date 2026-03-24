@@ -1,0 +1,16 @@
+#!/bin/bash
+# Launch tmux on a dedicated socket ("main") isolated from VS Code,
+# and protect the server process from the OOM killer.
+
+SOCKET="main"
+
+tmux -L "$SOCKET" "$@"
+
+# After tmux server starts, lower its OOM score
+sleep 1
+PID=$(pgrep -f "tmux: server.*-L $SOCKET" 2>/dev/null || pgrep -f "tmux -L $SOCKET" 2>/dev/null)
+if [ -n "$PID" ]; then
+    echo -900 | sudo tee /proc/$PID/oom_score_adj > /dev/null 2>&1 && \
+        echo "tmux server (PID $PID, socket=$SOCKET) protected from OOM killer" || \
+        echo "Warning: could not set OOM protection (need sudo)"
+fi
