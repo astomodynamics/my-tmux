@@ -25,20 +25,16 @@ fi
 if ! grep -q "tmux-safe" ~/.bashrc 2>/dev/null; then
     cat >> ~/.bashrc << 'BASHRC'
 
-# Auto-start tmux workspace (skip in VS Code and other IDE terminals)
-if command -v tmux &>/dev/null && [ -z "$TMUX" ] && [ -n "$PS1" ] \
-    && [ -z "$VSCODE_RESOLVERAUTHORITY" ] && [ -z "$TERM_PROGRAM_VERSION" ] \
-    && [ "$TERM_PROGRAM" != "vscode" ]; then
-    tmux -L main attach-session -t work 2>/dev/null || ~/.local/bin/dev-start.sh
-fi
+# Auto-start tmux workspace disabled so new terminals open as normal shells.
+alias devstart="$HOME/.local/bin/dev-start.sh"
 
 # Protect tmux from OOM killer
 alias tmux="tmux-safe"
 BASHRC
-    echo "Added tmux auto-start to ~/.bashrc"
+    echo "Added devstart alias to ~/.bashrc"
 fi
 
 echo "Done! Start tmux with: tmux-safe"
-echo "Or run: ~/.local/bin/dev-start.sh"
+echo "Or run: devstart"
 echo ""
 echo "NOTE: Open tmux and press prefix + I to install plugins."

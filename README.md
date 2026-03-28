@@ -7,7 +7,7 @@ Personal tmux configuration with session persistence and VS Code isolation.
 - **Session persistence**: Auto-saves every 15 min via tmux-resurrect + continuum
 - **OOM protection**: `tmux-safe` wrapper lowers OOM score so the kernel kills other processes first
 - **VS Code isolation**: Uses a dedicated socket (`-L main`) so VS Code terminals can't interfere
-- **Multi-project workspace**: `dev-start.sh` creates a pre-configured layout (attaches if session exists)
+- **Multi-project workspace**: `dev-start.sh` creates a configurable layout (attaches if session exists)
 
 ## Install
 
@@ -18,8 +18,7 @@ cd ~/github/my-tmux
 ```
 
 Then open tmux and press `prefix + I` to install TPM plugins.
-
-Edit `scripts/dev-start.sh` to configure your project directories.
+Edit `scripts/dev-start.sh` with your own project paths, then start the workspace manually with `devstart`.
 
 ## Files
 
@@ -36,5 +35,7 @@ Edit `scripts/dev-start.sh` to configure your project directories.
 |---------|--------|
 | `Alt + Arrow` | Switch panes (no prefix) |
 | `Shift + Arrow` | Switch windows (no prefix) |
+| `prefix + "` / `prefix + -` | Split vertically in the current directory |
+| `prefix + %` / `prefix + \|` | Split horizontally in the current directory |
 | `prefix + Ctrl-s` | Manual save session |
 | `prefix + Ctrl-r` | Manual restore session |
