@@ -1,6 +1,6 @@
 # my-tmux
 
-Personal tmux configuration with session persistence and VS Code isolation.
+Tmux configuration with session persistence and VS Code isolation.
 
 ## Features
 
@@ -9,11 +9,12 @@ Personal tmux configuration with session persistence and VS Code isolation.
 - **VS Code isolation**: Uses a dedicated socket (`-L main`) so VS Code terminals can't interfere
 - **Multi-project workspace**: `dev-start.sh` creates a configurable layout (attaches if session exists)
 - **Better terminal ergonomics**: focus events, larger history, current-directory splits, and clipboard-friendly copy helpers
+- **Yazi integration**: popup file manager binding plus tmux passthrough settings so Yazi previews can work inside tmux
 
 ## Install
 
 ```bash
-git clone https://github.com/astomodynamics/my-tmux.git ~/github/my-tmux
+git clone https://github.com/<your-username>/my-tmux.git ~/github/my-tmux
 cd ~/github/my-tmux
 ./install.sh
 ```
@@ -38,6 +39,7 @@ Edit `scripts/dev-start.sh` with your own project paths, then start the workspac
 | `Shift + Arrow` | Switch windows (no prefix) |
 | `prefix + "` / `prefix + -` | Split vertically in the current directory |
 | `prefix + %` / `prefix + \|` | Split horizontally in the current directory |
+| `prefix + f` | Open Yazi in a popup in the current directory |
 | `prefix + y` | Copy the current command line to the system clipboard |
 | `prefix + Y` | Copy the current pane working directory |
 | `prefix + P` | Toggle pane logging |
@@ -46,3 +48,9 @@ Edit `scripts/dev-start.sh` with your own project paths, then start the workspac
 | `prefix + Space` | Hint-select paths, SHAs, URLs, and similar tokens |
 | `prefix + Ctrl-s` | Manual save session |
 | `prefix + Ctrl-r` | Manual restore session |
+
+## Yazi Notes
+
+Yazi isn't installed by this repo, but the tmux config is ready for it.
+If `yazi` is on your `PATH`, `prefix + f` opens it in a popup rooted at the current pane directory.
+The tmux config also enables passthrough and preserves `TERM` / `TERM_PROGRAM`, which Yazi needs for image preview support inside tmux.
